@@ -13,19 +13,36 @@
 </h:head>
 
 <h:body>
+	<!-- cursoBean está pegando da classe CursoBean, curso e nome pegam 
+				de seu respectivo Get e Set -->
 	<h:form>
+		<!-- p:growl apresenta uma janela de mensagem na tela -->
+		<p:growl/>
 		<p:panel header="Cadastro de Cursos">
 			<!-- panelgrid ordena as informações em um grid, sem precisar
 			quebrar linha, colocando duas colunas ele apresenta 2 e quebra linha -->
+			<!-- p:selectOneMenu é do primefaces e cria uma combobox com uma opção de escolha -->
+			<!-- f:selectItem são os itens isolados do combobox -->
+			<!-- f:selectItems recebe uma lista, adicionando-a ao combobox, o atributo "var" 
+			cria uma variável (igual no for) para representar os itens da lista -->
 			<h:panelGrid columns="2">
 				<h:outputLabel value="Nome:" />
 				<p:inputText value="#{cursoBean.curso.nome}" />
-				<!-- cursoBean está pegando da classe CursoBean, curso e nome pegam 
-				de seu respectivo Get e Set -->
 				<h:outputLabel value="Descrição:" />
 				<p:inputTextarea value="#{cursoBean.curso.descricao}" cols="30"
 					rows="3" />
+				<h:outputLabel value="Duração:" />
+				<p:spinner value="#{cursoBean.curso.duracao}" min="1" stepFactor="0.5" size="1" />
+				<h:outputLabel value="Tipo:" />
+				<p:selectOneMenu value="#{cursoBean.curso.tipo}">
+					<f:selectItem itemLabel="...Selecione" itemValue="#{null}" />
+					<f:selectItems value="#{cursoBean.tipos}" var="tipo"
+						itemLabel="#{tipo.label}" itemValue="#{tipo}" />
+				</p:selectOneMenu>
 			</h:panelGrid>
+			<!-- p:commandButton é um botão que pode executar métodos, neste caso ele executa o método Salvar 
+			do cursoBean e o atributo update atualiza o formulário para aparecer a mensagem presente no método -->
+			<p:commandButton value="Salvar" action="#{cursoBean.salvar}" update="@form"/>
 		</p:panel>
 	</h:form>
 </h:body>

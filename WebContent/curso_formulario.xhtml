@@ -13,7 +13,6 @@
 </h:head>
 
 <h:body>
-	<!-- Projeto executando no Space -->
 	<!-- cursoBean está pegando da classe CursoBean, curso e nome pegam 
 				de seu respeSctivo Get e Set -->
 	<h:form>
@@ -26,9 +25,10 @@
 			<!-- f:selectItem são os itens isolados do combobox -->
 			<!-- f:selectItems recebe uma lista, adicionando-a ao combobox, o atributo "var" 
 			cria uma variável (igual no for) para representar os itens da lista -->
+			<!-- p:calendar cria um campo para preencher campos data -->
 			<h:panelGrid columns="2">
 				<h:outputLabel value="Nome:" />
-				<p:inputText value="#{cursoBean.curso.nome}" />
+				<p:inputText value="#{cursoBean.curso.nome}"/>
 				<h:outputLabel value="Descrição:" />
 				<p:inputTextarea value="#{cursoBean.curso.descricao}" cols="30"
 					rows="3" />
@@ -40,7 +40,10 @@
 					<f:selectItems value="#{cursoBean.tipos}" var="tipo"
 						itemLabel="#{tipo.label}" itemValue="#{tipo}" />
 				</p:selectOneMenu>
+				<h:outputLabel value="Data de Criação:" />
+				<p:calendar value="#{cursoBean.curso.dataCriacao}" pattern="dd/MM/yyyy"/>
 			</h:panelGrid>
+			<br/>
 			<!-- p:commandButton é um botão que pode executar métodos, neste caso ele executa o método Salvar 
 			do cursoBean e o atributo update atualiza o formulário para aparecer a mensagem presente no método -->
 			<p:commandButton value="Salvar" action="#{cursoBean.salvar}" update="@form"/>

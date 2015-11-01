@@ -1,16 +1,22 @@
 package escola.musica.bean;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import escola.musica.modelo.Curso;
 import escola.musica.modelo.TipoCurso;
 
+//ManegedBean declara que esta classe é Bean
 @ManagedBean
+//SessionScoped significa que os dados desta classe permanecerão ativos
+//até o final da seção do usuário.
+@SessionScoped
 public class CursoBean {
 
 	//Instanciando um novo curso
@@ -20,9 +26,17 @@ public class CursoBean {
 	//Arrays.asList esta convertendo um array de tipos de cursos em lista
 	private List<TipoCurso> tipos = Arrays.asList(TipoCurso.values());
 
+	//Criando lista de cursos, que armazenará os cursos já cadastrados
+	private List<Curso> cursos = new ArrayList<Curso>();
+	
 	//Método salvar, por enquanto só apresenta a mensagem "Curso salvo com Sucesso"
-	public void salvar(){
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Curso salvo com sucesso"));
+	public String salvar(){
+		//Adiciona o curso cadastrado na lista de cursos
+		cursos.add(curso);
+		//Cria uma nova instância de cursos para limpar o formulário
+		curso = new Curso();
+		//redireciona para a página curso_lista
+		return "curso_lista?faces-redirect=true";
 	}
 	
 	//Getters e Setters
@@ -40,6 +54,14 @@ public class CursoBean {
 
 	public void setTipos(List<TipoCurso> tipos) {
 		this.tipos = tipos;
+	}
+
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
 	}
 	
 	

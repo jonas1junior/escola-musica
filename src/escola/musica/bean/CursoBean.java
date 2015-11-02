@@ -1,13 +1,13 @@
 package escola.musica.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 import escola.musica.modelo.Curso;
 import escola.musica.modelo.TipoCurso;
@@ -37,6 +37,11 @@ public class CursoBean {
 		curso = new Curso();
 		//redireciona para a página curso_lista
 		return "curso_lista?faces-redirect=true";
+	}
+	
+	//método que retorna a data atual
+	public String getDataAtual(){
+		return new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 	}
 	
 	//Getters e Setters

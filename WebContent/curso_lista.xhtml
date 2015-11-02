@@ -16,10 +16,10 @@
 	<p:panel header="Cursos Cadastrados">
 		<!-- p:dataTable cria um grid -->
 		<p:dataTable value="#{cursoBean.cursos}" var="curso">
-			<p:column headerText="Nome">
+			<p:column headerText="Nome" style="width:300px;">
 				<h:outputText value="#{curso.nome}"/>
 			</p:column>
-			<p:column headerText="Duração">
+			<p:column headerText="Duração" style="width:80px;">
 			<h:outputText value="#{curso.duracao}"/>
 			</p:column>
 			<p:column headerText="Tipo">

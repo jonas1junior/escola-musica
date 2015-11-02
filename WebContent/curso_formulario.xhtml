@@ -15,10 +15,10 @@
 <h:body>
 	<!-- cursoBean está pegando da classe CursoBean, curso e nome pegam 
 				de seu respeSctivo Get e Set -->
-	<h:form>
+	<h:form id="form-cursos">
 		<!-- p:growl apresenta uma janela de mensagem na tela -->
 		<p:growl/>
-		<p:panel header="Cadastro de Cursos">
+		<p:panel header="Cadastro de Cursos" style="width:60%">
 			<!-- panelgrid ordena as informações em um grid, sem precisar
 			quebrar linha, colocando duas colunas ele apresenta 2 e quebra linha -->
 			<!-- p:selectOneMenu é do primefaces e cria uma combobox com uma opção de escolha -->
@@ -26,27 +26,37 @@
 			<!-- f:selectItems recebe uma lista, adicionando-a ao combobox, o atributo "var" 
 			cria uma variável (igual no for) para representar os itens da lista -->
 			<!-- p:calendar cria um campo para preencher campos data -->
-			<h:panelGrid columns="2">
+			<!-- Style permite editar o componente usando recursos css -->
+			<!-- required informa se o campo é ou não obrigatório para submeter o formulário -->
+			<!-- requiredMessage edita a mensagem que aparece ao usuário caso seja impedido a submissão -->
+			<!-- maxdate limita a data máxima do p:calendar -->
+			<h:panelGrid columns="2" style="width=90%">
 				<h:outputLabel value="Nome:" />
-				<p:inputText value="#{cursoBean.curso.nome}"/>
+				<p:inputText value="#{cursoBean.curso.nome}" required="True" 
+				requiredMessage="Você deve preencher o nome do usuário" 
+				validatorMessage="O nome do curso deve ter de 3 a 10 caracteres">
+					<f:validateLength minimum="3" maximum="10"/>
+				</p:inputText>
 				<h:outputLabel value="Descrição:" />
 				<p:inputTextarea value="#{cursoBean.curso.descricao}" cols="30"
-					rows="3" />
+					rows="3" required="True" requiredMessage="Preencha a descrição"/>
 				<h:outputLabel value="Duração:" />
-				<p:spinner value="#{cursoBean.curso.duracao}" min="1" stepFactor="0.5" size="1" />
+				<p:spinner value="#{cursoBean.curso.duracao}" min="1" stepFactor="0.5" size="1" max="10"/>
 				<h:outputLabel value="Tipo:" />
-				<p:selectOneMenu value="#{cursoBean.curso.tipo}">
+				<p:selectOneMenu value="#{cursoBean.curso.tipo}" required="True">
 					<f:selectItem itemLabel="...Selecione" itemValue="#{null}" />
 					<f:selectItems value="#{cursoBean.tipos}" var="tipo"
 						itemLabel="#{tipo.label}" itemValue="#{tipo}" />
 				</p:selectOneMenu>
 				<h:outputLabel value="Data de Criação:" />
-				<p:calendar value="#{cursoBean.curso.dataCriacao}" pattern="dd/MM/yyyy"/>
+				<p:calendar value="#{cursoBean.curso.dataCriacao}" pattern="dd/MM/yyyy" maxdate="#{cursoBean.dataAtual}"/>
 			</h:panelGrid>
 			<br/>
 			<!-- p:commandButton é um botão que pode executar métodos, neste caso ele executa o método Salvar 
 			do cursoBean e o atributo update atualiza o formulário para aparecer a mensagem presente no método -->
-			<p:commandButton value="Salvar" action="#{cursoBean.salvar}" update="@form"/>
+			<!-- icon recebe uma string indicando um icone para aparecer junto com o botão
+			pegue o conteúdo do icone do site: http://jqueryui.com/themeroller/ -->
+			<p:commandButton value="Salvar" action="#{cursoBean.salvar}" update="@form" icon="ui-icon-disk"/>
 		</p:panel>
 	</h:form>
 </h:body>
